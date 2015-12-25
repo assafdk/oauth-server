@@ -8,5 +8,5 @@ def hello():
     return 'Hello World!'
 
 @app.route('/google-adwords/oauth2callback')
-def hello():
-    return 'Hello World!'
+def hello_ggl():
+    return 'Hello Google!'
