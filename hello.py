@@ -6,3 +6,7 @@ app = Flask(__name__)
 @app.route('/')
 def hello():
     return 'Hello World!'
+
+@app.route('/google-adwords/oauth2callback')
+def hello():
+    return 'Hello World!'
