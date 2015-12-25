@@ -13,6 +13,6 @@ def hello_ggl():
     error = request.args.get('error','') 
     if error != '':
     	return "Google returned the following error: " + error
-    code = request.args.get('code')
-    #ret_str = 'Hello Google! Your code is'
-    return error#ret_str
+    code = request.args.get('code','')
+    ret_str = 'Hello Google! Your code is ' + code
+    return ret_str
