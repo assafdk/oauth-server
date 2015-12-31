@@ -1,1 +1,1 @@
-web: gunicorn hello:app --log-file=-
+web: gunicorn OAuth2Server:app --log-file=-
