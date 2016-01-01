@@ -5,7 +5,7 @@ import httplib2
 #import ParseAPI
 #from apiclient import discovery
 from oauth2client import client
-import ParseAPI as Parse
+#import ParseAPI as Parse
 
 #HOME_PAGE_3TARGETING = "http://3Targeting.com?status="
 HOME_PAGE_3TARGETING = "http://localhost:8000/settings.php"
@@ -30,12 +30,12 @@ def index():
     #files = drive_service.files().list().execute()
     return 'seccess' #json.dumps(files)
 
-@app.route('/oauth2callback')
+@app.route('/google-adwords/oauth2callback')
 def oauth2callback():
   # check if got an error back
   error = flask.request.args.get('error','') 
   if error != '':
-    return "Google returned the following error: " + error
+    return "Sorry dude, Google returned the following error: " + error
   #code = flask.request.args.get('code','')
   #ret_str = 'Hello Google! Your code is ' + code
   #return ret_str
@@ -57,12 +57,13 @@ def oauth2callback():
   #else:
   auth_code = flask.request.args.get('code')
   credentials = flow.step2_exchange(auth_code)
-  #flask.session['credentials'] = credentials.to_json()
+  return "yay, got credentials"
+  ##flask.session['credentials'] = credentials.to_json()
   access_token = credentials.access_token
   refresh_token = credentials.refresh_token
-  
-  Parse.register(APPLICATION_ID, REST_API_KEY)
-  Parse.pushTokens(userId = user_id, gglAccessToken = access_token, gglRefreshToken = refresh_token)
+  return access_token
+  #Parse.register(APPLICATION_ID, REST_API_KEY)
+  #Parse.pushTokens(userId = user_id, gglAccessToken = access_token, gglRefreshToken = refresh_token)
 
   return_url = HOME_PAGE_3TARGETING + "?status=ok"
   #return redirect(return_url)
@@ -75,5 +76,5 @@ def oauth2callback():
 if __name__ == '__main__':
   import uuid
   app.secret_key = str(uuid.uuid4())
-  app.debug = False
+  app.debug = True
   app.run()
