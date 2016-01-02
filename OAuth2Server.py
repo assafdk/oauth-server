@@ -60,7 +60,7 @@ def oauth2callback():
   #return "yay, got credentials"
   ##flask.session['credentials'] = credentials.to_json()
   access_token = credentials.access_token
-  return "Access token is: " + access_token
+  #return "Access token is: " + access_token
   refresh_token = credentials.refresh_token
   return "Refresh token is: " + refresh_token
   #Parse.register(APPLICATION_ID, REST_API_KEY)
