@@ -66,7 +66,7 @@ def oauth2callback():
   Parse.register(APPLICATION_ID, REST_API_KEY)
   Parse.pushAdwordsCredentials(account_id, access_token, refresh_token)
   
-  return redirect(HOME_PAGE_3TARGETING, code=302)
+  return flask.redirect(HOME_PAGE_3TARGETING, code=302)
   
   #Parse.pushTokens(userId = account_id, gglAccessToken = access_token, gglRefreshToken = refresh_token)
   #return "Parse OK"
