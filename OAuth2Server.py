@@ -5,7 +5,7 @@ import httplib2
 #import ParseAPI
 #from apiclient import discovery
 from oauth2client import client
-#import ParseAPI as Parse
+import ParseAPI as Parse
 
 #HOME_PAGE_3TARGETING = "http://3Targeting.com?status="
 HOME_PAGE_3TARGETING = "http://localhost:8000/settings.php"
@@ -39,7 +39,7 @@ def oauth2callback():
   #code = flask.request.args.get('code','')
   #ret_str = 'Hello Google! Your code is ' + code
   #return ret_str
-  user_id = flask.request.args.get('state')
+  account_id = flask.request.args.get('state')
   flow = client.OAuth2WebServerFlow(
     '280160838890-kjhls6qlss26fj1f2kr7v61fh5esmmuk.apps.googleusercontent.com',
     client_secret='ZQLzF8TadPS3Zpk52rACGsKG',
@@ -64,12 +64,12 @@ def oauth2callback():
   refresh_token = credentials.refresh_token
   #return "Refresh token is: " + refresh_token
   Parse.register(APPLICATION_ID, REST_API_KEY)
-  #Parse.pushTokens(userId = user_id, gglAccessToken = access_token, gglRefreshToken = refresh_token)
+  #Parse.pushTokens(userId = account_id, gglAccessToken = access_token, gglRefreshToken = refresh_token)
   return "Parse OK"
-  #return "Account: " + user_id + "\n Access token: " + access_token + "\nRefresh token: " + refresh_token + "\n\n were pushed to Parse"
+  #return "Account: " + account_id + "\n Access token: " + access_token + "\nRefresh token: " + refresh_token + "\n\n were pushed to Parse"
   return_url = HOME_PAGE_3TARGETING + "?status=ok"
   #return redirect(return_url)
-  return ("Access token for user " + user_id + " is " + access_token)
+  return ("Access token for user " + account_id + " is " + access_token)
 
   #"Access token = " + access_token + "Refresh token = " + refresh_token
   #return flask.redirect(flask.url_for('index'))
