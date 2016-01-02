@@ -64,7 +64,7 @@ def oauth2callback():
   refresh_token = credentials.refresh_token
   #return "Refresh token is: " + refresh_token
   Parse.register(APPLICATION_ID, REST_API_KEY)
-  #Parse.pushTokens(userId = account_id, gglAccessToken = access_token, gglRefreshToken = refresh_token)
+  Parse.pushTokens(userId = account_id, gglAccessToken = access_token, gglRefreshToken = refresh_token)
   return "Parse OK"
   #return "Account: " + account_id + "\n Access token: " + access_token + "\nRefresh token: " + refresh_token + "\n\n were pushed to Parse"
   return_url = HOME_PAGE_3TARGETING + "?status=ok"
