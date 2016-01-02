@@ -39,7 +39,7 @@ def oauth2callback():
   #code = flask.request.args.get('code','')
   #ret_str = 'Hello Google! Your code is ' + code
   #return ret_str
-  #user_id = flask.request.args.get('state')
+  user_id = flask.request.args.get('state')
   flow = client.OAuth2WebServerFlow(
     '280160838890-kjhls6qlss26fj1f2kr7v61fh5esmmuk.apps.googleusercontent.com',
     client_secret='ZQLzF8TadPS3Zpk52rACGsKG',
@@ -62,10 +62,10 @@ def oauth2callback():
   access_token = credentials.access_token
   #return "Access token is: " + access_token
   refresh_token = credentials.refresh_token
-  return "Refresh token is: " + refresh_token
-  #Parse.register(APPLICATION_ID, REST_API_KEY)
-  #Parse.pushTokens(userId = user_id, gglAccessToken = access_token, gglRefreshToken = refresh_token)
-
+  #return "Refresh token is: " + refresh_token
+  Parse.register(APPLICATION_ID, REST_API_KEY)
+  Parse.pushTokens(userId = user_id, gglAccessToken = access_token, gglRefreshToken = refresh_token)
+  return "Account: " user_id + "\n Access token: " + access_token + "\nRefresh token: " + refresh_token + "\n\n were pushed to Parse"
   return_url = HOME_PAGE_3TARGETING + "?status=ok"
   #return redirect(return_url)
   return ("Access token for user " + user_id + " is " + access_token)
