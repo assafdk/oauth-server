@@ -7,8 +7,8 @@ import httplib2
 from oauth2client import client
 import ParseAPI as Parse
 
-#HOME_PAGE_3TARGETING = "http://3Targeting.com?status="
-HOME_PAGE_3TARGETING = "http://localhost:8000/settings.php"
+HOME_PAGE_3TARGETING = "http://3Targeting.com?status="
+#HOME_PAGE_3TARGETING = "http://localhost:8000/settings.php"
 
 # Parse
 APPLICATION_ID = "zEw8OuVGoLit8vfLuofQZuKAJa6TIWTgKmInIt1F"
@@ -66,7 +66,7 @@ def oauth2callback():
   Parse.register(APPLICATION_ID, REST_API_KEY)
   Parse.pushAdwordsCredentials(account_id, access_token, refresh_token)
   
-  return redirect("http://www.example.com", code=302)
+  return redirect(HOME_PAGE_3TARGETING, code=302)
   
   #Parse.pushTokens(userId = account_id, gglAccessToken = access_token, gglRefreshToken = refresh_token)
   #return "Parse OK"
@@ -82,5 +82,5 @@ def oauth2callback():
 if __name__ == '__main__':
   import uuid
   app.secret_key = str(uuid.uuid4())
-  app.debug = False
+  app.debug = True
   app.run()
