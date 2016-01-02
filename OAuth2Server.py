@@ -78,13 +78,14 @@ def oauth2callback():
 @app.route('/salesforce/oauth2callback')
 def oauth2callback():
   # check if got an error back
+  return "Salesforce page"
   error = flask.request.args.get('error','') 
-  if error != '':
-    return "Sorry dude, Google returned the following error: " + error
+  # if error != '':
+  #   return "Sorry dude, Google returned the following error: " + error
 
-  account_id = flask.request.args.get('state')
-  auth_code = flask.request.args.get('code')
-  return "OK"
+  # account_id = flask.request.args.get('state')
+  # auth_code = flask.request.args.get('code')
+  # return "OK"
   #return "Account ID: " + account_id + "Code: " + auth_code
 
   #flow = client.OAuth2WebServerFlow(
