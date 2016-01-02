@@ -75,7 +75,34 @@ def oauth2callback():
   #"Access token = " + access_token + "Refresh token = " + refresh_token
   #return flask.redirect(flask.url_for('index'))
 
+@app.route('/salesforce/oauth2callback')
+def oauth2callback():
+  # check if got an error back
+  error = flask.request.args.get('error','') 
+  if error != '':
+    return "Sorry dude, Google returned the following error: " + error
 
+  account_id = flask.request.args.get('state')
+  auth_code = flask.request.args.get('code')
+  
+  flow = client.OAuth2WebServerFlow(
+    '3MVG98_Psg5cppyYH7Cios03svOf9hpZtPg.n0yTXRIKlnjy43.MNRgdLDbmBc3T5wK2IoYOaPLNlqBzNouzE',
+    client_secret='2132402812325087889',
+    #scope='https://www.googleapis.com/auth/adwords',
+    redirect_uri='https://x3targeting.herokuapp.com/salesforce/oauth2callback',
+    user_agent='3Targeting')
+  return "OK"
+  # access_token = credentials.access_token
+  # #return "Access token is: " + access_token
+  # refresh_token = credentials.refresh_token
+  # #return "Refresh token is: " + refresh_token
+  # Parse.register(APPLICATION_ID, REST_API_KEY)
+  # Parse.pushSalesforceCredentials(account_id, access_token, refresh_token)
+  # #return "Parse OK"
+  # #return "Account: " + account_id + "\n Access token: " + access_token + "\nRefresh token: " + refresh_token + "\n\n were pushed to Parse"
+  # return_url = HOME_PAGE_3TARGETING + "?status=ok"
+  # return flask.redirect(return_url)
+  
 if __name__ == '__main__':
   import uuid
   app.secret_key = str(uuid.uuid4())
