@@ -57,11 +57,12 @@ def oauth2callback():
   #else:
   auth_code = flask.request.args.get('code')
   credentials = flow.step2_exchange(auth_code)
-  return "yay, got credentials"
+  #return "yay, got credentials"
   ##flask.session['credentials'] = credentials.to_json()
   access_token = credentials.access_token
+  return "Access token is: " + access_token
   refresh_token = credentials.refresh_token
-  return access_token
+  return "Refresh token is: " + refresh_token
   #Parse.register(APPLICATION_ID, REST_API_KEY)
   #Parse.pushTokens(userId = user_id, gglAccessToken = access_token, gglRefreshToken = refresh_token)
 
