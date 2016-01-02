@@ -7,8 +7,8 @@ import httplib2
 from oauth2client import client
 import ParseAPI as Parse
 
-HOME_PAGE_3TARGETING = "http://3Targeting.com?status="
-#HOME_PAGE_3TARGETING = "http://localhost:8000/settings.php"
+#HOME_PAGE_3TARGETING = "http://3Targeting.com?status="
+HOME_PAGE_3TARGETING = "http://localhost:8000/settings.php"
 
 # Parse
 APPLICATION_ID = "zEw8OuVGoLit8vfLuofQZuKAJa6TIWTgKmInIt1F"
@@ -65,14 +65,11 @@ def oauth2callback():
   #return "Refresh token is: " + refresh_token
   Parse.register(APPLICATION_ID, REST_API_KEY)
   Parse.pushAdwordsCredentials(account_id, access_token, refresh_token)
-  
-  return flask.redirect(HOME_PAGE_3TARGETING, code=302)
-  
   #Parse.pushTokens(userId = account_id, gglAccessToken = access_token, gglRefreshToken = refresh_token)
   #return "Parse OK"
   #return "Account: " + account_id + "\n Access token: " + access_token + "\nRefresh token: " + refresh_token + "\n\n were pushed to Parse"
-  #return_url = HOME_PAGE_3TARGETING + "?status=ok"
-  #return redirect(return_url)
+  return_url = HOME_PAGE_3TARGETING + "?status=ok"
+  return flask.redirect(return_url)
   #return ("Access token for user " + account_id + " is " + access_token)
 
   #"Access token = " + access_token + "Refresh token = " + refresh_token
