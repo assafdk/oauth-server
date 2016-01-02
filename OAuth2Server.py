@@ -84,14 +84,15 @@ def oauth2callback():
 
   account_id = flask.request.args.get('state')
   auth_code = flask.request.args.get('code')
-  
-  flow = client.OAuth2WebServerFlow(
-    '3MVG98_Psg5cppyYH7Cios03svOf9hpZtPg.n0yTXRIKlnjy43.MNRgdLDbmBc3T5wK2IoYOaPLNlqBzNouzE',
-    client_secret='2132402812325087889',
-    #scope='https://www.googleapis.com/auth/adwords',
-    redirect_uri='https://x3targeting.herokuapp.com/salesforce/oauth2callback',
-    user_agent='3Targeting')
-  return "OK"
+  return "Account ID: " + account_id + "Code: " + auth_code
+
+  #flow = client.OAuth2WebServerFlow(
+  #  '3MVG98_Psg5cppyYH7Cios03svOf9hpZtPg.n0yTXRIKlnjy43.MNRgdLDbmBc3T5wK2IoYOaPLNlqBzNouzE',
+  #  client_secret='2132402812325087889',
+  #  #scope='https://www.googleapis.com/auth/adwords',
+  #  redirect_uri='https://x3targeting.herokuapp.com/salesforce/oauth2callback',
+  #  user_agent='3Targeting')
+  #return "OK"
   # access_token = credentials.access_token
   # #return "Access token is: " + access_token
   # refresh_token = credentials.refresh_token
