@@ -84,7 +84,8 @@ def oauth2callback():
 
   account_id = flask.request.args.get('state')
   auth_code = flask.request.args.get('code')
-  return "Account ID: " + account_id + "Code: " + auth_code
+  return "OK"
+  #return "Account ID: " + account_id + "Code: " + auth_code
 
   #flow = client.OAuth2WebServerFlow(
   #  '3MVG98_Psg5cppyYH7Cios03svOf9hpZtPg.n0yTXRIKlnjy43.MNRgdLDbmBc3T5wK2IoYOaPLNlqBzNouzE',
