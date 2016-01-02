@@ -39,7 +39,7 @@ def oauth2callback():
   #code = flask.request.args.get('code','')
   #ret_str = 'Hello Google! Your code is ' + code
   #return ret_str
-  user_id = flask.request.args.get('state')
+  #user_id = flask.request.args.get('state')
   flow = client.OAuth2WebServerFlow(
     '280160838890-kjhls6qlss26fj1f2kr7v61fh5esmmuk.apps.googleusercontent.com',
     client_secret='ZQLzF8TadPS3Zpk52rACGsKG',
