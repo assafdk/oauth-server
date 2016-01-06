@@ -29,3 +29,7 @@ def pushAdwordsCredentials(accountId, gglAccessToken, gglRefreshToken):
 	adwordsCredentials = json.loads(json.dumps(adwordsCredentials))
 	adwordAccount  = accounts(objectId=accountId,adwords=adwordsCredentials)
 	adwordAccount.save()
+
+def pushSalesforceCredentials(accountId, jsonCredentials):
+	salesforceAccount  = accounts(objectId=accountId,salesforce=jsonCredentials)
+	salesforceAccount.save()

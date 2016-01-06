@@ -1,5 +1,5 @@
 import json
-
+import requests
 import flask
 import httplib2
 #import ParseAPI
@@ -77,11 +77,46 @@ def oauth2callback():
 
 @app.route('/salesforce/oauth2callback')
 def salesforceOauth2callback():
+  consumer_key = '3MVG98_Psg5cppyYH7Cios03svOf9hpZtPg.n0yTXRIKlnjy43.MNRgdLDbmBc3T5wK2IoYOaPLNlqBzNouzE'
+  consumer_secret = 2132402812325087889
+  request_token_url = 'https://login.salesforce.com/services/oauth2/token'
+  access_token_url = 'https://login.salesforce.com/services/oauth2/token'
+  redirect_uri = 'https://x3targeting.herokuapp.com/salesforce/oauth2callback'
+  #authorize_url = 'https://login.salesforce.com/services/oauth2/authorize?response_type=token&client_id='+consumer_key+'&redirect_uri='+redirect_uri
+
+  
+  #return "Salesforce page"
+
   # check if got an error back
-  return "Salesforce page"
-  # error = flask.request.args.get('error','') 
-  #  if error != '':
-  #    return "Sorry dude, Google returned the following error: " + error
+  error = flask.request.args.get('error','') 
+  if error != '':
+    return "Sorry dude, Google returned the following error: " + error
+
+  account_id = flask.request.args.get('state')
+  auth_code = flask.request.args.get('code')
+  
+  data = {
+        'grant_type': 'authorization_code',
+        'redirect_uri': redirect_uri,
+        'code': auth_code,
+        'client_id' : consumer_key,
+        'client_secret' : consumer_secret
+    }
+  headers = {'content-type': 'application/x-www-form-urlencoded'}
+  req = requests.post(access_token_url,data=data,headers=headers)
+  response = req.json()
+  
+  Parse.register(APPLICATION_ID, REST_API_KEY)
+  Parse.pushSalesforceCredentials(account_id, response)
+  
+  return "Success"
+  # sf = Salesforce(instance_url=response['instance_url'], session_id=response['access_token'])
+  
+  # return 'success'
+  # records = sf.query("SELECT Id, Name, Email FROM Contact")
+  # records = records['records']
+
+
 
   # account_id = flask.request.args.get('state')
   # auth_code = flask.request.args.get('code')
