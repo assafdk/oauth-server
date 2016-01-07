@@ -109,7 +109,8 @@ def salesforceOauth2callback():
   Parse.register(APPLICATION_ID, REST_API_KEY)
   Parse.pushSalesforceCredentials(account_id, response)
   
-  return "Success"
+  return_url = HOME_PAGE_3TARGETING + "?status=ok"
+  return flask.redirect(return_url)
   # sf = Salesforce(instance_url=response['instance_url'], session_id=response['access_token'])
   
   # return 'success'
