@@ -8,7 +8,7 @@ from oauth2client import client
 import ParseAPI as Parse
 
 #HOME_PAGE_3TARGETING = "http://3Targeting.com?status="
-HOME_PAGE_3TARGETING = "http://localhost:8000/settings.php"
+HOME_PAGE_3TARGETING = "http://localhost:8012/settings.php"
 
 # Parse
 APPLICATION_ID = "zEw8OuVGoLit8vfLuofQZuKAJa6TIWTgKmInIt1F"
