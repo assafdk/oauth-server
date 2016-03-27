@@ -119,9 +119,6 @@ def salesforceOauth2callback():
   sfCred['token_type'] = response['token_type']
 
   db.pushSalseforceCredentials(sfCred)
-  return flask.jsonify(**response)
-
-  return "OK"
 
   return_url = HOME_PAGE_3TARGETING + "?status=ok"
   return flask.redirect(return_url)
