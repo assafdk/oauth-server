@@ -63,7 +63,7 @@ def oauth2callback():
   #Parse.pushAdwordsCredentials(account_id, access_token, refresh_token)
 
   adwordsCred = {} # credentials dictionary
-  adwordsCred['id'] = account_id
+  adwordsCred['accountId'] = account_id
   adwordsCred['adwords_access_token'] = access_token
   adwordsCred['adwords_refresh_token'] = refresh_token
   db.pushAdwordsCredentials(adwordsCred)
@@ -108,7 +108,7 @@ def salesforceOauth2callback():
   response = req.json()
 
   sfCred = {} # credentials dictionary
-  sfCred['id'] = account_id
+  sfCred['accountId'] = account_id
   sfCred['sf_id'] = response['id']
   sfCred['access_token'] = response['access_token']
   sfCred['refresh_token'] = response['refresh_token']
