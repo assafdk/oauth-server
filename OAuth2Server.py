@@ -2,20 +2,16 @@ import json
 import requests
 import flask
 import httplib2
-#import ParseAPI
 #from apiclient import discovery
 from oauth2client import client
-import ParseAPI as Parse
+import mySQLreplica as mySQL
 
 #HOME_PAGE_3TARGETING = "http://3Targeting.com?status="
 HOME_PAGE_3TARGETING = "http://localhost:8012/connectors.php"
 
-# Parse
-APPLICATION_ID = "zEw8OuVGoLit8vfLuofQZuKAJa6TIWTgKmInIt1F"
-REST_API_KEY = "VZWgc30TFeResXW0oOHW21haVMSkiZXugm2hO72L"
+db = mySQL.Database()
 
 app = flask.Flask(__name__)
-
 
 @app.route('/')
 def index():
@@ -63,10 +59,15 @@ def oauth2callback():
   #return "Access token is: " + access_token
   refresh_token = credentials.refresh_token
   #return "Refresh token is: " + refresh_token
-  Parse.register(APPLICATION_ID, REST_API_KEY)
-  Parse.pushAdwordsCredentials(account_id, access_token, refresh_token)
-  #Parse.pushTokens(userId = account_id, gglAccessToken = access_token, gglRefreshToken = refresh_token)
-  #return "Parse OK"
+
+  #Parse.pushAdwordsCredentials(account_id, access_token, refresh_token)
+
+  adwordsCred = {} # credentials dictionary
+  adwordsCred['id'] = account_id
+  adwordsCred['adwords_access_token'] = access_token
+  adwordsCred['adwords_refresh_token'] = refresh_token
+  db.pushAdwordsCredentials(adwordsCred)
+
   #return "Account: " + account_id + "\n Access token: " + access_token + "\nRefresh token: " + refresh_token + "\n\n were pushed to Parse"
   return_url = HOME_PAGE_3TARGETING + "?status=ok"
   return flask.redirect(return_url)
@@ -105,10 +106,23 @@ def salesforceOauth2callback():
   headers = {'content-type': 'application/x-www-form-urlencoded'}
   req = requests.post(access_token_url,data=data,headers=headers)
   response = req.json()
-  
-  Parse.register(APPLICATION_ID, REST_API_KEY)
-  Parse.pushSalesforceCredentials(account_id, response)
-  
+
+  sfCred = {} # credentials dictionary
+  sfCred['id'] = account_id
+  sfCred['sf_id'] = response['id']
+  sfCred['access_token'] = response['access_token']
+  sfCred['refresh_token'] = response['refresh_token']
+  sfCred['instance_url'] = response['instance_url']
+  sfCred['issued_at'] = response['issued_at']
+  sfCred['scope'] = response['scope']
+  sfCred['signature'] = response['signature']
+  sfCred['token_type'] = response['token_type']
+
+  db.pushSalseforceCredentials(sfCred)
+  return flask.jsonify(**response)
+
+  return "OK"
+
   return_url = HOME_PAGE_3TARGETING + "?status=ok"
   return flask.redirect(return_url)
   # sf = Salesforce(instance_url=response['instance_url'], session_id=response['access_token'])
@@ -135,9 +149,6 @@ def salesforceOauth2callback():
   # #return "Access token is: " + access_token
   # refresh_token = credentials.refresh_token
   # #return "Refresh token is: " + refresh_token
-  # Parse.register(APPLICATION_ID, REST_API_KEY)
-  # Parse.pushSalesforceCredentials(account_id, access_token, refresh_token)
-  # #return "Parse OK"
   # #return "Account: " + account_id + "\n Access token: " + access_token + "\nRefresh token: " + refresh_token + "\n\n were pushed to Parse"
   # return_url = HOME_PAGE_3TARGETING + "?status=ok"
   # return flask.redirect(return_url)
