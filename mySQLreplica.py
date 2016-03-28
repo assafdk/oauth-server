@@ -1,14 +1,15 @@
 __author__ = 'assafdekel'
-import mysql.connector
+import MySQLdb
 
 class Database:
 
-    cnx = mysql.connector
+    cnx = MySQLdb.Connection
 
     def __init__(self):
-        self.cnx = mysql.connector.connect(user='locatit6_3yc', password='ShedShvil11',
-                                           host='50.87.248.155',
-                                           database='locatit6_3targeting')
+        self.cnx = MySQLdb.connect(host='50.87.248.155',
+                                   user='locatit6_3yc',
+                                   passwd='ShedShvil11',
+                                   db='locatit6_3targeting')
     def __del__(self):
         self.cnx.close()
 
