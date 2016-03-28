@@ -21,7 +21,6 @@ class Database:
         query = ("SELECT consumer_key, consumer_secret, access_token, instance_url, refresh_token, sf_id, issued_at, scope, signature, token_type, enabled FROM sf_credentials WHERE account_id = {}").format(accountId)
         cursor.execute(query)
         result = cursor.fetchall()
-        colNames = cursor.column_names
 
         for row in result:
             sfCred = {} # credentials dictionary
@@ -54,7 +53,6 @@ class Database:
         query = ("SELECT enabled, access_token, refresh_token FROM adwords_credentials WHERE account_id = {}").format(accountId)
         cursor.execute(query)
         result = cursor.fetchall()
-        colNames = cursor.column_names
 
         for row in result:
             adwordsCred = {} # credentials dictionary
@@ -70,7 +68,6 @@ class Database:
         query = ("SELECT enabled, fb_user_id, fb_account_id, user_token, expiresIn, spent FROM fb_credentials WHERE account_id = {}").format(accountId)
         cursor.execute(query)
         result = cursor.fetchall()
-        colNames = cursor.column_names
 
         for row in result:
             fbCred = {} # credentials dictionary
@@ -130,14 +127,7 @@ class Database:
     #     return
 
 
-    def query(self, queryStr):
-        cursor = self.db.cursor()
-        cursor.execute(queryStr)
-
-        cursor.close()
-        self.db.close()
-
-# debug
+# # debug
 # a = Database()
 # accountId = 1
 #
