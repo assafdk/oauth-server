@@ -3,21 +3,21 @@ import MySQLdb
 
 class Database:
 
-    cnx = MySQLdb.Connection
+    db = MySQLdb.Connection
 
     def __init__(self):
-        self.cnx = MySQLdb.connect(host='50.87.248.155',
+        self.db = MySQLdb.connect(host='50.87.248.155',
                                    user='locatit6_3yc',
                                    passwd='ShedShvil11',
                                    db='locatit6_3targeting')
-    def __del__(self):
-        self.cnx.close()
-
-    def closeConnection(self):
-        self.cnx.close()
+    # def __del__(self):
+    #     self.db.close()
+    #
+    # def closeConnection(self):
+    #     self.db.close()
 
     def getSalesforceCredentials(self, accountId):
-        cursor = self.cnx.cursor()
+        cursor = self.db.cursor()
         query = ("SELECT consumer_key, consumer_secret, access_token, instance_url, refresh_token, sf_id, issued_at, scope, signature, token_type, enabled FROM sf_credentials WHERE account_id = {}").format(accountId)
         cursor.execute(query)
         result = cursor.fetchall()
@@ -50,7 +50,7 @@ class Database:
 
 
     def getAdwordsCredentials(self, accountId):
-        cursor = self.cnx.cursor()
+        cursor = self.db.cursor()
         query = ("SELECT enabled, access_token, refresh_token FROM adwords_credentials WHERE account_id = {}").format(accountId)
         cursor.execute(query)
         result = cursor.fetchall()
@@ -66,7 +66,7 @@ class Database:
         return adwordsCred
 
     def getFacebookCredentials(self, accountId):
-        cursor = self.cnx.cursor()
+        cursor = self.db.cursor()
         query = ("SELECT enabled, fb_user_id, fb_account_id, user_token, expiresIn, spent FROM fb_credentials WHERE account_id = {}").format(accountId)
         cursor.execute(query)
         result = cursor.fetchall()
@@ -85,7 +85,7 @@ class Database:
         return fbCred
 
     def pushSalseforceCredentials(self, sfCred):
-        cursor = self.cnx.cursor()
+        cursor = self.db.cursor()
         query = ("UPDATE sf_credentials SET access_token = '" + sfCred['access_token']
                  + "', refresh_token = '" + sfCred['refresh_token']
                  + "', instance_url = '" + sfCred['instance_url']
@@ -96,34 +96,34 @@ class Database:
                  + "', token_type = '" + sfCred['token_type']
                  + "' WHERE account_id = {}").format(sfCred['accountId'])
         cursor.execute(query)
-        self.cnx.commit()
+        self.db.commit()
         cursor.close()
         return
 
     def pushFacebookCredentials(self, fbCred):
-        cursor = self.cnx.cursor()
+        cursor = self.db.cursor()
         query = ("UPDATE fb_credentials SET user_token = '" + fbCred['user_token']
                  + "', expiresIn = '" + fbCred['expiresIn']
                  + "', spent = '" + fbCred['spent']
                  + "' WHERE account_id = {}").format(fbCred['accountId'])
 
         cursor.execute(query)
-        self.cnx.commit()
+        self.db.commit()
         cursor.close()
         return
 
     def pushAdwordsCredentials(self, awCred):
-        cursor = self.cnx.cursor()
+        cursor = self.db.cursor()
         query = "UPDATE adwords_credentials SET access_token = '" + awCred['access_token'] \
                 + "', refresh_token = '" + awCred['refresh_token'] \
                 + "' WHERE account_id = {}".format(awCred['accountId'])
         cursor.execute(query)
-        self.cnx.commit()
+        self.db.commit()
         cursor.close()
         return
 
     # def pushTwitterCredentials(self, accountId, twitterCred):
-    #     cursor = self.cnx.cursor()
+    #     cursor = self.db.cursor()
     #     query = ("UPDATE accounts SET fb_user_id=twitterCred['fb_user_id'], fb_account_id=twitterCred['fb_account_id'], fb_user_token=twitterCred['fb_user_token'], fb_expiresIn=twitterCred['fb_expiresIn'], fb_spent=twitterCred['fb_spent'] WHERE id = {}").format(accountId)
     #     cursor.execute(query)
     #     cursor.close()
@@ -131,11 +131,11 @@ class Database:
 
 
     def query(self, queryStr):
-        cursor = self.cnx.cursor()
+        cursor = self.db.cursor()
         cursor.execute(queryStr)
 
         cursor.close()
-        self.cnx.close()
+        self.db.close()
 
 # debug
 # a = Database()
