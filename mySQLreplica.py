@@ -1,5 +1,4 @@
 __author__ = 'assafdekel'
-import json
 import mysql.connector
 
 class Database:

@@ -1,8 +1,6 @@
-import json
 import requests
 import flask
 import httplib2
-#from apiclient import discovery
 from oauth2client import client
 import mySQLreplica as mySQL
 
