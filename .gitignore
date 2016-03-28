@@ -1,6 +1,8 @@
 # Assaf
 *.pyc
 .idea/
+setuptools-20.3.1.zip
+oauth-venv/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
