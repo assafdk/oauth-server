@@ -6,10 +6,18 @@ class Database:
     db = MySQLdb.Connection
 
     def __init__(self):
-        self.db = MySQLdb.connect(host='50.87.248.155',
-                                   user='locatit6_3yc',
+        # BlueHost
+        # self.db = MySQLdb.connect(host='50.87.248.155',
+        #                            user='locatit6_3yc',
+        #                            passwd='ShedShvil11',
+        #                            db='locatit6_3targeting')
+
+        # AWS RDS
+        self.db = MySQLdb.connect(host='ncal-mysql-instance1.caabsuivlzcf.us-west-1.rds.amazonaws.com',
+                                   user='aws3targeting',
                                    passwd='ShedShvil11',
-                                   db='locatit6_3targeting')
+                                   db='mysql3targeting')
+
     # def __del__(self):
     #     self.db.close()
     #
